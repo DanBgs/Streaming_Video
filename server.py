@@ -4,6 +4,7 @@ import pickle
 import struct
 import os
 
+
 def crea_server(video_path):
     if not os.path.exists(video_path):
         print(f"[ERRORE] Il file video '{video_path}' non esiste.")
@@ -13,10 +14,10 @@ def crea_server(video_path):
     port = 65432
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((host, port))
+    server_socket.bind(('localhost', 65432))
     server_socket.listen(1)
     print(f"[INFO] Server in ascolto su {host}:{port}")
-    
+
     conn, addr = server_socket.accept()
     print(f"[INFO] Connessione accettata da {addr}")
 
@@ -37,8 +38,8 @@ def crea_server(video_path):
             msg = struct.pack("!L", len(frame_pickle)) + frame_pickle
             conn.sendall(msg)
 
-            # Imposta il framerate (es. 30 fps = 33ms tra i frame)
-            cv2.waitKey(33)
+            # Imposta il framerate (es. 60 fps = 17ms tra i frame)
+            cv2.waitKey(17)
 
     finally:
         cap.release()
@@ -46,6 +47,7 @@ def crea_server(video_path):
         server_socket.close()
         print("[INFO] Server chiuso.")
 
+
 if __name__ == "__main__":
     # Sostituisci con il percorso del tuo file video
-    crea_server("video_di_test.mp4")
+    crea_server("sample-video.mp4")
