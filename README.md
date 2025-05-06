@@ -7,8 +7,8 @@ Questo progetto implementa un semplice sistema di **streaming video tramite sock
 ## 📦 Funzionalità
 
 - 📡 Trasmissione video in tempo reale via TCP
-- 🎞️ file video locali
-- ⚙️ Compressione dei frame con JPEG per ridurre la banda
+- 🎞️ trasmissione di file video locali
+- ⚙️ Compressione del file in un flusso **MPEG-TS** per ridurre la banda
 - 🖥️ Visualizzazione dei frame sul client in tempo reale
 - ✅ Compatibile con Python 3.7+
 
@@ -16,8 +16,5 @@ Questo progetto implementa un semplice sistema di **streaming video tramite sock
 
 ## 🛠️ Requisiti
 
-Assicurati di avere installato Python 3 e i seguenti pacchetti:
-
-```bash
-pip install opencv-python
+Assicurati di avere installato Python 3 e un file FFmpeg sul dispositivo windows
 
