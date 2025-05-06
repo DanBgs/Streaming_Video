@@ -1,53 +1,26 @@
 import socket
-import cv2
-import pickle
-import struct
+import subprocess
 
-def crea_client():
-    host = 'localhost'
-    port = 65432
+SERVER_IP = '127.0.0.1'
+PORT = 9999
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((host, port))
-    print(f"[INFO] Connesso a {host}:{port}")
+# Crea socket e si connette al server
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((SERVER_IP, PORT))
+print(f"[CLIENT] Connesso a {SERVER_IP}:{PORT}")
 
-    data = b""
-    payload_size = struct.calcsize("!L")
+# Avvia FFplay per riprodurre lo stream MPEG-TS ricevuto
+ffplay = subprocess.Popen([
+    'ffplay', '-i', 'pipe:0', '-fflags', 'nobuffer'
+], stdin=subprocess.PIPE)
 
-    try:
-        while True:
-            # Ricevi la dimensione del pacchetto
-            while len(data) < payload_size:
-                packet = client_socket.recv(4096)
-                if not packet:
-                    break
-                data += packet
+# Legge dal socket e scrive nel player
+while True:
+    data = client_socket.recv(1024)
+    if not data:
+        break
+    ffplay.stdin.write(data)
 
-            if not data:
-                break
-
-            packed_msg_size = data[:payload_size]
-            data = data[payload_size:]
-            msg_size = struct.unpack("!L", packed_msg_size)[0]
-
-            # Ricevi il pacchetto vero e proprio (frame JPEG)
-            while len(data) < msg_size:
-                data += client_socket.recv(4096)
-
-            frame_data = data[:msg_size]
-            data = data[msg_size:]
-
-            frame = pickle.loads(frame_data)
-            frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-
-            cv2.imshow("Video Streaming (TCP)", frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-
-    finally:
-        print("[INFO] Connessione chiusa.")
-        client_socket.close()
-        cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    crea_client()
+client_socket.close()
+ffplay.terminate()
+print("[CLIENT] Streaming terminato.")
