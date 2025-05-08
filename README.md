@@ -1,4 +1,4 @@
-# 🎥 Streaming Video via TCP con Python e FFmpeg
+# Streaming Video via TCP con Python e FFmpeg
 
 Questo progetto implementa un sistema di **streaming video tramite socket TCP** in Python. Il progetto include un **server** che invia un flusso video (da un file video locale) tramite TCP e un **client** che riceve il flusso e lo riproduce in tempo reale utilizzando **FFplay**.
 
