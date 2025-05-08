@@ -16,5 +16,5 @@ Questo progetto implementa un semplice sistema di **streaming video tramite sock
 
 ## 🛠️ Requisiti
 
-Assicurati di avere installato Python 3 e un file FFmpeg sul dispositivo windows
+Assicurati di avere installato Python 3 e un file FFmpeg sul dispositivo windows 
 
