@@ -65,4 +65,8 @@ Il client include un'interfaccia grafica basata su **Tkinter** che permette di a
 
 * Questo progetto è progettato per dimostrare la trasmissione di flussi video via TCP. Puo essere espanso ulteriormente aggiungendo funzionalità come la gestione di più client, la trasmissione di flussi video in diretta o l'inclusione di un'interfaccia utente avanzata.
 
+## Presentazione canva 
+
+* https://www.canva.com/design/DAGmzfXqG8g/xRViZKcqrGKg0tgTT7hGog/edit?utm_content=DAGmzfXqG8g&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 
